@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title> RGB LED - Real Time Color Picker</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; padding: 20% 0 0; height: 100%; position: relative;}
+      input[type="color"] { width: 80%; height: 400px; margin: 0 auto; display: block;}
+    </style>
+  </head>
+  <body>
+
+  <input id="color" type="color">
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    (function () {
+      var socket = io();
+      var color  = document.getElementById('color');
+
+      color.addEventListener('change', function(){
+        var color = this.value.slice(1);
+
+        console.log('%c#' + color, 'padding: 3px; background-color: #' + color + '; color: #ffffff;');
+
+        socket.emit('color', color);
+      });
+
+    })();
+  </script>
+  </body>
+</html>
